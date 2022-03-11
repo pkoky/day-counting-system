@@ -10,6 +10,7 @@ import Container from '@mui/material/Container';
 
 import DateFnsUtils from '@date-io/date-fns'
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
+import { format } from 'date-fns'
 
 
 function App() {
@@ -28,9 +29,20 @@ function App() {
   }
 
   const caluculate = (): void => {
-    console.log(referenceDate)
-    console.log(targetDate)
+    if (referenceDate != null) {
+      const refYear = format(referenceDate, "y")
+      const refMonth = format(referenceDate, "M");
+      const refDay = format(referenceDate, "d");
+      
+    }
+    if (targetDate != null) {
+      const refYear = format(targetDate, "y")
+      const refMonth = format(targetDate, "M");
+      const refDay = format(targetDate, "d");
+    }
   }
+
+
 
 
   return (
