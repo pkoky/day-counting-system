@@ -42,6 +42,23 @@ function App() {
     }
   }
 
+  const modifiedJuliusDay = (y: number, m: number, d: number): number => {
+    if (m < 3) {
+      m = m === 1 ? 13 : 14;
+    }
+    
+    let result = Math.floor(365.25 * y);
+    result += Math.floor(y / 400);
+    result -= Math.floor(y / 100);
+    result += Math.floor(30.59 * (m - 2));
+    result += d;
+    result -= 678912;
+
+    return result;
+  }
+
+  let data1 = modifiedJuliusDay(1971, 1, 24);
+  let data2 = modifiedJuliusDay(2011, 9, 22);
 
 
 
