@@ -2,13 +2,10 @@ import React,{ useState } from 'react';
 import './App.css';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
-
 
 import DateFnsUtils from '@date-io/date-fns'
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
@@ -20,34 +17,37 @@ function App() {
   const [targetDate, setTargetDate] = useState<Date | null>(new Date())
   const [resultData, setResultData] = useState(0)
 
-  // Reference Date
   const changeDateHandler = (newDate: Date | null): void => {
     setReferenceDate(newDate)
-    console.log(referenceDate)
   }
 
   const changeTargetDateHandler = (newDate: Date | null): void => {
     setTargetDate(newDate)
-    console.log(targetDate)
   }
 
   const caluculate = (): void => {
-
     const formattedReferenceData = referenceDate != null ? formattingData(referenceDate) : null;
     const formattedTargetData = targetDate != null ? formattingData(targetDate) : null;
-    
+
+    if (formattedReferenceData != null && formattedTargetData != null) {
+      const targetJulius = getModifiedJuliusDay(formattedTargetData.y, formattedTargetData.m, formattedTargetData.d);
+      const referenceJulius = getModifiedJuliusDay(formattedReferenceData.y, formattedReferenceData.m, formattedReferenceData.d);
+      const numberOfDay = targetJulius - referenceJulius;
+      setResultData(numberOfDay);
+    }
   }
 
   const formattingData = (date: Date) => {
     if (date == null) return;
-    const year = format(date, "y")
-    const month = format(date, "M");
-    const day = format(date, "d");
+    const year = Number(format(date, "y"));
+    const month = Number(format(date, "M"));
+    const day = Number(format(date, "d"));
     let result = {y: year, m: month, d: day};
     return result;
   }
 
-  const modifiedJuliusDay = (y: number, m: number, d: number): number => {
+  // フリーゲルの公式を使用 -> 修正ユリウス日を求める
+  const getModifiedJuliusDay = (y: number, m: number, d: number): number => {
     if (m < 3) {
       m = m === 1 ? 13 : 14;
     }
