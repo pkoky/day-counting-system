@@ -5,17 +5,21 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Container from '@mui/material/Container';
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import IconButton from '@mui/material/IconButton';
+
 import Stack from '@mui/material/Stack';
 
 import DateFnsUtils from '@date-io/date-fns'
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import { format } from 'date-fns'
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 
 function App() {
   const [referenceDate, setReferenceDate] = useState<Date | null>(new Date())
   const [targetDate, setTargetDate] = useState<Date | null>(new Date())
-  const [resultData, setResultData] = useState(0)
+  const [resultData, setResultData] = useState('')
 
   const changeDateHandler = (newDate: Date | null): void => {
     setReferenceDate(newDate)
@@ -32,12 +36,13 @@ function App() {
     if (formattedReferenceData != null && formattedTargetData != null) {
       const targetJulius = getModifiedJuliusDay(formattedTargetData.y, formattedTargetData.m, formattedTargetData.d);
       const referenceJulius = getModifiedJuliusDay(formattedReferenceData.y, formattedReferenceData.m, formattedReferenceData.d);
-      const numberOfDay = targetJulius - referenceJulius;
+      const numberOfDay = String(targetJulius - referenceJulius);
       setResultData(numberOfDay);
     }
   }
 
   const formattingData = (date: Date) => {
+    console.log(date)
     if (date == null) return;
     const year = Number(format(date, "y"));
     const month = Number(format(date, "M"));
@@ -52,10 +57,10 @@ function App() {
       m = m === 1 ? 13 : 14;
     }
     
-    let result = Math.floor(365.25 * y);
-    result += Math.floor(y / 400);
-    result -= Math.floor(y / 100);
-    result += Math.floor(30.59 * (m - 2));
+    let result = Math.floor(365.25 * y); // 閏年を入れた年間の平均日数
+    result += Math.floor(y / 400); // 閏年の例外を補正する計算
+    result -= Math.floor(y / 100); // 閏年の例外を補正する計算
+    result += Math.floor(30.59 * (m - 2)); // グレゴリオ暦との差異日数の補正値
     result += d;
     result -= 678912;
 
@@ -84,7 +89,6 @@ function App() {
                   format="yyyy年M月d日"
                   onChange={changeTargetDateHandler} />
               </MuiPickersUtilsProvider>
-              年 月 日
             </CardContent>
             <CardContent>
               <Button onClick={caluculate}>計算</Button>（基準日を含む）
@@ -93,6 +97,11 @@ function App() {
           <Card>
             <Box sx={{ p: 2}}>
               {resultData} 日
+              <CopyToClipboard text={resultData + '日'}>
+                <IconButton size="small">
+                  <ContentCopyIcon />
+                </IconButton>
+              </CopyToClipboard>
             </Box>
           </Card>
         </Stack>
