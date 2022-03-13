@@ -6,6 +6,8 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Container from '@mui/material/Container';
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import Grid from '@mui/material/Grid';
+
 import IconButton from '@mui/material/IconButton';
 
 import Stack from '@mui/material/Stack';
@@ -95,14 +97,20 @@ function App() {
             </CardContent>
           </Card>
           <Card>
-            <Box sx={{ p: 2}}>
-              {resultData} 日
-              <CopyToClipboard text={resultData + '日'}>
-                <IconButton size="small">
-                  <ContentCopyIcon />
-                </IconButton>
-              </CopyToClipboard>
-            </Box>
+            <Grid container sx={{ p: 2}}>
+              <Grid item xs={10}>
+                <Box sx={{ display: 'flex', justifyContent: 'center'}}>
+                  {resultData} 日
+                </Box>
+              </Grid>
+              <Grid item xs={2}>
+                <CopyToClipboard text={resultData + '日'}>
+                  <IconButton size="small">
+                    <ContentCopyIcon />
+                  </IconButton>
+                </CopyToClipboard>
+              </Grid>
+            </Grid>
           </Card>
         </Stack>
       </Box>
