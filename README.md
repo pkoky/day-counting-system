@@ -44,3 +44,8 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+(日数計算)[https://keisan.casio.jp/exec/system/1177658154]
+(フリーゲルの公式参考サイト)[https://www.mk-mode.com/blog/2011/09/22/22002000/]
+(date-fns format description)[https://date-fns.org/v2.28.0/docs/format]
