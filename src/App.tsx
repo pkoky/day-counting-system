@@ -57,6 +57,7 @@ function App() {
   const getModifiedJuliusDay = (y: number, m: number, d: number): number => {
     if (m < 3) {
       m = m === 1 ? 13 : 14;
+      y -= 1;
     }
     
     let result = Math.floor(365.25 * y); // 閏年を入れた年間の平均日数
@@ -93,7 +94,7 @@ function App() {
               </MuiPickersUtilsProvider>
             </CardContent>
             <CardContent>
-              <Button onClick={caluculate}>計算</Button>（基準日を含む）
+              <Button onClick={caluculate}>計算</Button>（基準日を含まない）
             </CardContent>
           </Card>
           <Card>
