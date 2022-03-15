@@ -16,6 +16,7 @@ import DateFnsUtils from '@date-io/date-fns'
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import { format } from 'date-fns'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import {ClimateClock} from './components/ClimateClock'
 
 
 function App() {
@@ -74,6 +75,7 @@ function App() {
     <Container maxWidth="sm" sx={{ height: '100vh'}}>
       <Box sx={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
         <Stack spacing={4}>
+        <ClimateClock />
           <Card sx={{ minWidth: '100%'}}> 
             <CardContent>
               基準日 : 
