@@ -18,6 +18,8 @@ import { format } from 'date-fns'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {ClimateClock} from './components/ClimateClock'
 
+import {theme} from './style/index'
+
 
 function App() {
   const [referenceDate, setReferenceDate] = useState<Date | null>(new Date())
@@ -72,7 +74,7 @@ function App() {
   }
 
   return (
-    <Container maxWidth="sm" sx={{ height: '100vh'}}>
+    <Container maxWidth="sm" sx={{ height: '100vh', bgcolor: theme.palette.primary.main}}>
       <Box sx={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
         <Stack spacing={4}>
         <ClimateClock />
@@ -96,7 +98,7 @@ function App() {
               </MuiPickersUtilsProvider>
             </CardContent>
             <CardContent>
-              <Button onClick={caluculate}>計算</Button>（基準日を含まない）
+              <Button onClick={caluculate} sx={{color: theme.palette.primary.main}}>計算</Button>（基準日を含まない）
             </CardContent>
           </Card>
           <Card>
