@@ -1,5 +1,5 @@
 import React,{ useState } from 'react';
-import './App.css';
+import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -56,6 +56,10 @@ function App() {
     return result;
   }
 
+  const style = {
+    background: theme.palette.primary.dark
+  }
+
   // フリーゲルの公式を使用 -> 修正ユリウス日を求める
   const getModifiedJuliusDay = (y: number, m: number, d: number): number => {
     if (m < 3) {
@@ -74,52 +78,56 @@ function App() {
   }
 
   return (
-    <Container maxWidth="sm" sx={{ height: '100vh', bgcolor: theme.palette.primary.main}}>
-      <Box sx={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-        <Stack spacing={4}>
+    <Box sx={{ minHeight: '100vh', bgcolor: theme.palette.primary.main}}>
+      <Box sx={{ bgcolor: theme.palette.primary.dark}}>
         <ClimateClock />
-          <Card sx={{ minWidth: '100%'}}> 
-            <CardContent>
-              基準日 : 
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <DatePicker 
-                  value={referenceDate} 
-                  format="yyyy年M月d日"
-                  onChange={changeDateHandler} />
-              </MuiPickersUtilsProvider>
-            </CardContent>
-            <CardContent>
-              目標日 :
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <DatePicker 
-                  value={targetDate} 
-                  format="yyyy年M月d日"
-                  onChange={changeTargetDateHandler} />
-              </MuiPickersUtilsProvider>
-            </CardContent>
-            <CardContent>
-              <Button onClick={caluculate} sx={{color: theme.palette.primary.main}}>計算</Button>（基準日を含まない）
-            </CardContent>
-          </Card>
-          <Card>
-            <Grid container sx={{ p: 2}}>
-              <Grid item xs={10}>
-                <Box sx={{ display: 'flex', justifyContent: 'center'}}>
-                  {resultData} 日
-                </Box>
-              </Grid>
-              <Grid item xs={2}>
-                <CopyToClipboard text={resultData + '日'}>
-                  <IconButton size="small">
-                    <ContentCopyIcon />
-                  </IconButton>
-                </CopyToClipboard>
-              </Grid>
-            </Grid>
-          </Card>
-        </Stack>
       </Box>
-    </Container>
+      <Box sx={{ py: 20}}> 
+        <Box sx={{ display: 'flex', justifyContent: 'center'}}>
+          <Stack spacing={4}>
+            <Card sx={{ minWidth: '100%'}}> 
+              <CardContent>
+                基準日 : 
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <DatePicker 
+                    value={referenceDate} 
+                    format="yyyy年M月d日"
+                    onChange={changeDateHandler} />
+                </MuiPickersUtilsProvider>
+              </CardContent>
+              <CardContent>
+                目標日 :
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <DatePicker 
+                    value={targetDate} 
+                    format="yyyy年M月d日"
+                    onChange={changeTargetDateHandler} />
+                </MuiPickersUtilsProvider>
+              </CardContent>
+              <CardContent>
+                <Button onClick={caluculate} sx={{color: theme.palette.primary.main}}>計算</Button>（基準日を含まない）
+              </CardContent>
+            </Card>
+            <Card>
+              <Grid container sx={{ p: 2}}>
+                <Grid item xs={10}>
+                  <Box sx={{ display: 'flex', justifyContent: 'center'}}>
+                    {resultData} 日
+                  </Box>
+                </Grid>
+                <Grid item xs={2}>
+                  <CopyToClipboard text={resultData + '日'}>
+                    <IconButton size="small">
+                      <ContentCopyIcon />
+                    </IconButton>
+                  </CopyToClipboard>
+                </Grid>
+              </Grid>
+            </Card>
+          </Stack>
+        </Box>
+      </Box>
+    </Box>
   );
 }
 
