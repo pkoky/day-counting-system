@@ -56,10 +56,6 @@ function App() {
     return result;
   }
 
-  const style = {
-    background: theme.palette.primary.dark
-  }
-
   // フリーゲルの公式を使用 -> 修正ユリウス日を求める
   const getModifiedJuliusDay = (y: number, m: number, d: number): number => {
     if (m < 3) {

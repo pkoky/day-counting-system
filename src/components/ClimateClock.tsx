@@ -1,6 +1,11 @@
 import React,{ useState, useEffect, useRef } from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
+import Typography from "@mui/material/Typography";
+
+import {theme} from './../style/index'
+import { setTokenSourceMapRange } from 'typescript';
+
 
 
 const ClimateClock = () => {
@@ -23,11 +28,12 @@ const ClimateClock = () => {
       const fullMinutes = Math.floor((timeDistance % (1000 * 60 * 60) / (1000 * 60)));
       const fullSeconds = Math.floor((timeDistance % (1000 * 60) / 1000));
       
-      setTimerYears(String(fullYears));
-      setTimerDays(String(fullDays));
-      setTimerHours(String(fullHours));
-      setTimerMinutes(String(fullMinutes));
-      setTimerSeconds(String(fullSeconds));
+      
+      setTimerYears(getDateStr(fullYears));
+      setTimerDays(getDateStr(fullDays));
+      setTimerHours(getDateStr(fullHours));
+      setTimerMinutes(getDateStr(fullMinutes));
+      setTimerSeconds(getDateStr(fullSeconds));
 
     }, 1000)
   }
@@ -37,17 +43,26 @@ const ClimateClock = () => {
     return () => clearInterval();
   },[]);
 
+  const getDateStr = (num: number): string => {
+    const result = num < 10 ? '0' + String(num) : String(num);
+    return result;
+  }
+
   return (
-    <Stack>
-      <Box sx={{ p: 1}}>
-        climate clock
+    <Stack sx={{ py: 1 }}>
+      <Box sx={{ p: 1, display: 'flex', justifyContent: 'center' }}>
+        <Typography variant="h2" sx={{ fontFamily: ["Rubik"], color: theme.palette.secondary.main }}>
+          Climate Clock
+        </Typography>
       </Box>
-      <Box sx={{ p: 1}}>
-        {Number(timerYears) < 10 ? "0" + timerYears: timerYears}yrs
-        {Number(timerDays) < 10 ? "0" + timerDays: timerDays}days
-        {Number(timerHours) < 10 ? "0" + timerHours: timerHours}:
-        {Number(timerMinutes) < 10 ? "0" + timerMinutes: timerMinutes}:
-        {Number(timerSeconds) < 10 ? "0" + timerSeconds: timerSeconds}
+      <Box sx={{ p: 1, display: 'flex', justifyContent: 'center' }}>
+        <Typography variant="h5" sx={{ fontFamily: ["Rubik"]}}>
+          {timerYears}yrs
+          {timerDays}days
+          {timerHours}:
+          {timerMinutes}:
+          {timerSeconds}
+        </Typography>
       </Box>
     </Stack>
   )
