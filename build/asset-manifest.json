@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/day-counting-system/static/css/main.9ec7039b.css",
+    "main.js": "/day-counting-system/static/js/main.f60224e8.js",
+    "static/js/787.ce830cb4.chunk.js": "/day-counting-system/static/js/787.ce830cb4.chunk.js",
+    "index.html": "/day-counting-system/index.html",
+    "main.9ec7039b.css.map": "/day-counting-system/static/css/main.9ec7039b.css.map",
+    "main.f60224e8.js.map": "/day-counting-system/static/js/main.f60224e8.js.map",
+    "787.ce830cb4.chunk.js.map": "/day-counting-system/static/js/787.ce830cb4.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9ec7039b.css",
+    "static/js/main.f60224e8.js"
+  ]
+}
