@@ -1,15 +1,18 @@
 import React,{ useState } from 'react';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Container from '@mui/material/Container';
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+
 import Grid from '@mui/material/Grid';
-
 import IconButton from '@mui/material/IconButton';
-
 import Stack from '@mui/material/Stack';
 
 import DateFnsUtils from '@date-io/date-fns'
@@ -25,6 +28,7 @@ function App() {
   const [referenceDate, setReferenceDate] = useState<Date | null>(new Date())
   const [targetDate, setTargetDate] = useState<Date | null>(new Date())
   const [resultData, setResultData] = useState('')
+  const [open, setOpen] = useState(false);
 
   const changeDateHandler = (newDate: Date | null): void => {
     setReferenceDate(newDate)
@@ -73,8 +77,35 @@ function App() {
     return result;
   }
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: theme.palette.primary.main}}>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>The TIME</DialogTitle>
+        <DialogContent dividers>
+          <Grid container sx={{ p: 2}}>
+            <Grid item xs={10}>
+              <Box sx={{ display: 'flex', justifyContent: 'center'}}>
+                {resultData} 日
+              </Box>
+            </Grid>
+            <Grid item xs={2}>
+              <CopyToClipboard text={resultData + '日'}>
+                <IconButton size="small">
+                  <ContentCopyIcon />
+                </IconButton>
+              </CopyToClipboard>
+            </Grid>
+          </Grid>
+        </DialogContent>
+      </Dialog>
       <Box sx={{ bgcolor: theme.palette.primary.dark}}>
         <ClimateClock />
       </Box>
@@ -101,7 +132,11 @@ function App() {
                 </MuiPickersUtilsProvider>
               </CardContent>
               <CardContent>
-                <Button onClick={caluculate} sx={{color: theme.palette.primary.main}}>計算</Button>（基準日を含まない）
+                <Button onClick = {() => {
+                    caluculate();
+                    handleClickOpen()
+                  }} 
+                  sx={{color: theme.palette.primary.main}}>計算</Button>（基準日を含まない）
               </CardContent>
             </Card>
             <Card>

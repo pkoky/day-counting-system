@@ -69,3 +69,5 @@ const ClimateClock = () => {
 }
 
 export {ClimateClock};
+
+// https://github.com/RobzLegz/climate-clock/blob/main/src/App.js
